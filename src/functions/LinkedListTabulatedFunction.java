@@ -1,7 +1,6 @@
 package functions;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class LinkedListTabulatedFunction implements TabulatedFunction, Serializable
 {
@@ -276,13 +275,14 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, Serializa
         int hash = pointsCount;
         iterator=head.nextAddress;
         while (iterator != head) {
-            hash ^=iterator.object.hashCode();
+            hash +=iterator.object.hashCode();
+            hash *= 907;
             iterator = iterator.nextAddress;
         }
         return hash;
     }
     public Object clone() throws CloneNotSupportedException {
-        FunctionPoint arr[]=new FunctionPoint[pointsCount];
+        FunctionPoint arr[] =new FunctionPoint[pointsCount];
         iterator=head.nextAddress;
         for(int i=0; i < pointsCount; i++, iterator=iterator.nextAddress)
             arr[i]=iterator.object;
